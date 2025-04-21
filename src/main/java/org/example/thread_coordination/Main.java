@@ -1,4 +1,4 @@
-package org.example.threadcoordination;
+package org.example.thread_coordination;
 
 import java.math.BigInteger;
 import java.util.ArrayList;
@@ -16,7 +16,7 @@ public class Main {
         }
 
         for (Thread thread : threads) {
-            // thread.setDaemon(true);
+            // thread.setDaemon(true);   // mark threads as Daemon to terminate application once main thread terminates or interrupt thread and handle it
             thread.start();
         }
 
@@ -29,8 +29,8 @@ public class Main {
             if (factorialThread.isFinished()) {
                 System.out.println("Factorial of " + inputNumbers.get(i) + " is " + factorialThread.getResult());
             } else {
-                factorialThread.interrupt();
                 System.out.println("The calculation for " + inputNumbers.get(i) + " is still in progress");
+                factorialThread.interrupt();
             }
         }
     }
@@ -52,11 +52,11 @@ public class Main {
 
         public BigInteger factorial(long n) {
             BigInteger tempResult = BigInteger.ONE;
-            if(Thread.currentThread().isInterrupted()) {
-                // System.out.println("Calculation interrupted");
-                return BigInteger.ZERO;
-            }
             for (long i = n; i > 0; i--) {
+                if(Thread.currentThread().isInterrupted()) {
+                    System.out.println("Calculation interrupted externally");
+                    return BigInteger.ZERO;
+                }
                 tempResult = tempResult.multiply(new BigInteger((Long.toString(i))));
             }
             return tempResult;

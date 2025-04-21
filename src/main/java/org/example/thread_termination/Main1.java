@@ -1,4 +1,4 @@
-package org.example.threadtermination;
+package org.example.thread_termination;
 
 public class Main1 {
     public static void main(String [] args) {
