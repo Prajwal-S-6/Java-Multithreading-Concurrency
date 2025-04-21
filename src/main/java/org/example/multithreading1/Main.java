@@ -7,13 +7,13 @@ public class Main {
             @Override
             public void run() {
                 // this code executes on new thread
-                System.out.println("This is from " + Thread.currentThread().getName());
+                System.out.println("This is from " + Thread.currentThread().getName());  //worker thread
             }
         });
 
         newThread.setPriority(Thread.MIN_PRIORITY);
         newThread.setName("New Thread");
         newThread.start();
-        System.out.println("This is from thread " + Thread.currentThread().getName());
+        System.out.println("This is from thread " + Thread.currentThread().getName()); // main thread
     }
 }
