@@ -2,20 +2,26 @@ package org.example.resource_sharing;
 
 public class Main {
     public static void main(String[] args) throws InterruptedException {
-        InventoryCounter inventoryCounter = new InventoryCounter();
-        IncrementingThread incrementingThread = new IncrementingThread(inventoryCounter);
-        DecrementingThread decrementingThread = new DecrementingThread(inventoryCounter);
+        InventoryCounter inventoryCounter1 = new InventoryCounter();
+        InventoryCounter inventoryCounter2 = new InventoryCounter();
+        IncrementingThread incrementingThread = new IncrementingThread(inventoryCounter1);
+        DecrementingThread decrementingThread = new DecrementingThread(inventoryCounter1);
+
+        IncrementingThread incrementingThread1 = new IncrementingThread(inventoryCounter2);
 
 
         // two threads are running in parallel, OS schedules each threads and if inventoryCounter is not updated; before next thread is scheduled;
             // then there will be mismatch in data between threads
         incrementingThread.start();
+        incrementingThread1.start();
         decrementingThread.start();
 
         incrementingThread.join();
+        incrementingThread1.join();
         decrementingThread.join();
 
-        System.out.println("We currently have " + inventoryCounter.getItems() + " items");
+        System.out.println("We currently have " + inventoryCounter1.getItems() + " items");
+        System.out.println("We currently have " + inventoryCounter2.getItems() + " items");
     }
 
     public static class DecrementingThread extends Thread {
@@ -53,12 +59,26 @@ public class Main {
     private static class InventoryCounter {
         private int items = 0;
 
+//        public synchronized void increment() {
+//
+//            items++;
+//        }
+
         public void increment() {
-            items++;
+            synchronized (this) {
+                items++;
+            }
         }
 
+//        public synchronized void decrement() {
+//
+//            items--;
+//        }
+
         public void decrement() {
-            items--;
+            synchronized (this) {
+                items--;
+            }
         }
 
         public int getItems() {
