@@ -1,6 +1,6 @@
 package org.example.resource_sharing;
 
-public class Main2 {
+public class LockingOnDiffObject {
     public static void main(String [] args) {
         SharedClass sharedObject = new SharedClass();
 
