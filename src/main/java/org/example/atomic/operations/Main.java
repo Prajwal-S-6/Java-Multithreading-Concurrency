@@ -1,4 +1,4 @@
-package org.example.atomic_operations;
+package org.example.atomic.operations;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
