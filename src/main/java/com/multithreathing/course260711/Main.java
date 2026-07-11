@@ -71,7 +71,7 @@ public class Main {
         thread3.start();
         thread4.start();
 
-        //Daemon thread; jvm terminates worker thread completes, even though daemon thread is running
+        //Daemon thread; jvm terminates when all worker thread terminates, even though daemon thread is running
         var daemonThread = new Thread(new Daemon());
         daemonThread.setDaemon(true);
         daemonThread.start();
