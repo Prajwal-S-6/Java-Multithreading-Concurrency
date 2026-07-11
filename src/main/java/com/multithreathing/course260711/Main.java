@@ -1,6 +1,6 @@
 package com.multithreathing.course260711;
 
-class Runner1 implements Runnable {
+class Worker1 implements Runnable {
 
     @Override
     public void run() {
@@ -15,7 +15,7 @@ class Runner1 implements Runnable {
     }
 }
 
-class Runner2 extends Thread{
+class Worker2 extends Thread{
 
     @Override
     public void run() {
@@ -29,11 +29,27 @@ class Runner2 extends Thread{
         }
     }
 }
+
+class Daemon implements Runnable {
+    @Override
+    public void run() {
+        while(true)
+        {
+            try {
+                Thread.sleep(1000);
+                System.out.println("Daemon thread running...");
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+}
 public class Main {
 
     public static void main(String[] args) throws InterruptedException {
-        var thread1 = new Thread(new Runner1());    // Runnable interface
-        var thread2 = new Thread(new Runner2());    // Thread class extend
+        //Worker thread; jvm doesnt terminate until all worker thread terminates
+        var thread1 = new Thread(new Worker1());    // Runnable interface
+        var thread2 = new Thread(new Worker2());    // Thread class extend
         var thread3 = new Thread(new Runnable() {   // Runnable anonymous class
             @Override
             public void run() {
@@ -42,17 +58,23 @@ public class Main {
                 }
             }
         });
-        Runnable runner4 = () -> {                  // Lambda syntax
+        Runnable worker4 = () -> {                  // Lambda syntax
             for (int i = 0; i < 10; i++) {
                 System.out.println("Runner 4: " + i);
             }
         };
-        var thread4 = new Thread(runner4);
+        var thread4 = new Thread(worker4);
+
 
         thread1.start();
         thread2.start();
         thread3.start();
         thread4.start();
+
+        //Daemon thread; jvm terminates worker thread completes, even though daemon thread is running
+        var daemonThread = new Thread(new Daemon());
+        daemonThread.setDaemon(true);
+        daemonThread.start();
 
         thread3.join();
         thread2.join();
