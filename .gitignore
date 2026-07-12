@@ -21,7 +21,7 @@
 /src/main/java/com/java/multi/threading/creation/Main.java
 /src/main/java/com/java/multi/threading/example1/Main.java
 /src/main/java/com/java/multi/threading/locks/Main.java
-/src/main/java/com/multithreathing/course260711/Main.java
+/src/main/java/com/multithreathing/course260711/ThreadCreation.java
 /pom.xml
 /target/classes/com/java/multi/threading/latch/Process.class
 /target/classes/com/java/multi/threading/pool/Process.class

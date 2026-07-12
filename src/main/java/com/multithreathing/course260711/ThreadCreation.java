@@ -44,7 +44,7 @@ class Daemon implements Runnable {
         }
     }
 }
-public class Main {
+public class ThreadCreation {
 
     public static void main(String[] args) throws InterruptedException {
         //Worker thread; jvm doesnt terminate until all worker thread terminates
