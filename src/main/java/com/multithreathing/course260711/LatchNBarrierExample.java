@@ -21,9 +21,7 @@ class Thread1 implements Runnable {
 
             cyclicBarrier.await();
             System.out.println("barrier tripped thread1 working again");
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        } catch (BrokenBarrierException e) {
+        } catch (InterruptedException | BrokenBarrierException e) {
             throw new RuntimeException(e);
         }
     }
@@ -48,9 +46,7 @@ class Thread2 implements Runnable {
 
             cyclicBarrier.await();
             System.out.println("barrier tripped thread2 working again");
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        } catch (BrokenBarrierException e) {
+        } catch (InterruptedException | BrokenBarrierException e) {
             throw new RuntimeException(e);
         }
     }
@@ -75,9 +71,7 @@ class Thread3 implements Runnable {
 
             cyclicBarrier.await();
             System.out.println("barrier tripped thread3 working again");
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        } catch (BrokenBarrierException e) {
+        } catch (InterruptedException | BrokenBarrierException e) {
             throw new RuntimeException(e);
         }
     }
