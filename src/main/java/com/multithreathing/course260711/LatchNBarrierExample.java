@@ -57,7 +57,6 @@ class Thread3 implements Runnable {
     private final CountDownLatch countDownLatch;
     private final CyclicBarrier cyclicBarrier;
 
-
     public Thread3(CountDownLatch countDownLatch, CyclicBarrier cyclicBarrier) {
         this.countDownLatch = countDownLatch;
         this.cyclicBarrier = cyclicBarrier;
