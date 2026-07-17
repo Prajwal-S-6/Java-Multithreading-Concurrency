@@ -1,6 +1,9 @@
 package com.multithreathing.course260711;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.concurrent.*;
+import java.util.stream.Collectors;
 
 class Task1 {
 
@@ -71,5 +74,14 @@ public class ExecutorServiceExample1 {
         } catch (Exception  ee) {
             System.out.println("Couldnt get the value within time" + ee);
         }
+
+        List<Integer> list1 = Arrays.asList(1,2,3);
+        List<Integer> list2 = Arrays.asList(4,5);
+
+        List<List<Integer>> res = list1.stream()
+                .map(n1 -> list2.stream().map(n2 -> Arrays.asList(n1, n2)))
+                .flatMap(x -> x)
+                .collect(Collectors.toList());
+        System.out.println(res);
     }
 }

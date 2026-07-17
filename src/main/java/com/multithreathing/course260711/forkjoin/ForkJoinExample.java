@@ -1,6 +1,5 @@
 package com.multithreathing.course260711.forkjoin;
 
-import java.util.List;
 import java.util.concurrent.ForkJoinPool;
 import java.util.concurrent.RecursiveAction;
 import java.util.concurrent.RecursiveTask;
@@ -37,10 +36,34 @@ class ListAdditionWorker extends RecursiveAction {
         return res;
     }
 }
-public class Main {
+
+class Fibonacci extends RecursiveTask<Integer> {
+
+    int num;
+
+    public Fibonacci(int nthFibNum) {
+        this.num = nthFibNum;
+    }
+
+    @Override
+    protected Integer compute() {
+        if(num <= 1)
+        {
+            return num;
+        } else {
+            Fibonacci fibonacci = new Fibonacci(num - 1);
+            Fibonacci fibonacci1 = new Fibonacci(num - 2);
+            fibonacci1.fork();
+
+            return fibonacci.compute() + fibonacci1.join();
+        }
+    }
+}
+public class ForkJoinExample {
 
     static void main() {
         ForkJoinPool forkJoinPool = new ForkJoinPool();
-        forkJoinPool.invoke(new ListAdditionWorker(new int[] {1,2,3,4,5,6,7,8,9,10}));
+//        forkJoinPool.invoke(new ListAdditionWorker(new int[] {1,2,3,4,5,6,7,8,9,10}));
+        System.out.println(forkJoinPool.invoke(new Fibonacci(8)));
     }
 }
